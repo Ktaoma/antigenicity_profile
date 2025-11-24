@@ -10,7 +10,7 @@ data(BLOSUM100)
 source("R/config.R")
 source("R/utils.R")
 options(shiny.maxRequestSize = 1024 * 1024 * 2048) # 2 GB
-unlink("result", recursive = TRUE)
+#unlink("result", recursive = TRUE)
 
 # Define UI ----
 ui <- fluidPage(
@@ -90,7 +90,8 @@ ui <- fluidPage(
                          )
                        ),
                        hr(),
-                       fluidRow(dataTableOutput("segment_summary_usr"))
+                       fluidRow(
+                         dataTableOutput("segment_summary_usr")),
               )
   )
 )
@@ -103,21 +104,15 @@ server <- function(input, output) {
   
   observeEvent(input$run_pipeline,{
     system2("bash", args = c("script/01_run.sh",input$fastq_files$datapath))
-    
     result_ready(TRUE)
-    
-    showNotification("Pipeline finished running!", type = "message")
-    
   })
   
   
   
   
   output$segment_summary_usr <- renderDataTable({
-    
       req(result_ready()) 
-    
-      mydf <- read.table("result/sample.tsv",header=T)
+      mydf <- fread("result/stat/summary_statistcs.tsv",header=T)
       datatable(mydf,
                 extensions = 'Buttons',
                 options = list(
@@ -127,6 +122,11 @@ server <- function(input, output) {
                 ))
       
     })
+  
+  
+  
+  ##################################################################
+  
   
   output$segment_summary <- renderDataTable({
     

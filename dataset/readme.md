@@ -1,1 +1,0 @@
-ferret-based assay

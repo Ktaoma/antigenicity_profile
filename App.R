@@ -129,8 +129,7 @@ server <- function(input, output) {
   })
 
   
-  
-  
+
   ## check subtypes ##
   subtype <- reactive({
     
@@ -222,7 +221,10 @@ server <- function(input, output) {
         epitope_idx_l[[cnt_]] <- idx_sub
         
         
-        ###
+        ##############################################################################
+        # The simple linear model for antigenicity prediction
+        # You might want to refine model later
+        ##############################################################################
         Pepitope <- sum(score)/length(epitope)    
         if (type == "H1N1") {
           E <- -1.19*Pepitope+0.53
@@ -240,6 +242,7 @@ server <- function(input, output) {
 
     }
     
+    
   
     list_name <- strsplit(colnames(aln_df),"\\|")
     idx <- 1
@@ -248,7 +251,7 @@ server <- function(input, output) {
     vec_date <- c()
     vec_id <- c()
     vec_clade <- c()
-    #as.character(input$date1)
+    
     for (v in list_name) {
       
       if (v[1] == "sample") {

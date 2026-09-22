@@ -1,3 +1,7 @@
+Fasta file in this folder will be used in reference-based assembly in **`Flu_assembler.sh`**
+
+**Here are the information included in the header**
+
 Directory for influenza A and B viruses from NLM virus database retrieved at 04/01/2025 with following settings:
 
 1. Taxonomy: Betainfluenzavirus: 197911; Alphainfluenzavirus: 197912 <br> 

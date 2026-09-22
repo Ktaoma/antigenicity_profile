@@ -17,7 +17,7 @@ seqkit locate -p AGTAGAAACAAGG $1 | gzip -9 > result/tmp/reverse.tsv.gz
 seqkit locate -p AGCAAAAGCAGG  $1 | gzip -9 > result/tmp/forward.tsv.gz
 
 # Select the read id with correct orientation
-Rscript ./script/02_parse_primer_pattern.R result/tmp both
+Rscript ./R/parse_primer_pattern.R result/tmp both
 seqkit grep -f result/tmp/QC_id.tsv $1 | gzip -9 > result/fastq/filtered.fq.gz
 seqkit stat result/fastq/filtered.fq.gz | tail -n+2 >> result/stat/summary_statistcs.tsv
 rm -rf result/fastq/*.tsv.gz
